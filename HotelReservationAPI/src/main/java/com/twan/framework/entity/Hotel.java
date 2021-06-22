@@ -10,6 +10,8 @@ public class Hotel {
 
 	private final long id;
 	private final String hotelName;
+	private float price;
+	private boolean availability;
 
 	public Hotel(long id, String hotelName) {
 		this.id = id;
@@ -18,6 +20,14 @@ public class Hotel {
 		Reservation reservation = new Reservation();
 		reservation.setReservationID(23);
 		this.reservations.add(reservation);
+	}
+	
+	public Hotel(long id, String hotelName, float price, boolean availability) {
+		this.id = id;
+		this.hotelName = hotelName;
+		this.price = price;
+		this.availability = availability;
+		this.reservations = new ArrayList<Reservation>();
 	}
 
 	public long getId() {
@@ -32,6 +42,22 @@ public class Hotel {
 		return reservations;
 	}
 
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public boolean isAvailability() {
+		return availability;
+	}
+	
+	public void setAvailability(boolean availability) {
+		this.availability = availability;
+	}
+	
 	void setReservation(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
