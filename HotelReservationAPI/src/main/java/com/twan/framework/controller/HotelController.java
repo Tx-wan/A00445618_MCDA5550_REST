@@ -1,16 +1,20 @@
 package com.twan.framework.controller;
 
-import com.twan.framework.entity.Hotel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.twan.framework.entity.Hotel;
+import com.twan.framework.entity.Reservation;
 
 
 @RestController
@@ -23,6 +27,11 @@ public class HotelController {
 	public List<Hotel> getListOfHotels() {
 		List<Hotel> hotelsList = this.getHotelList();
 		return hotelsList;
+	}
+	
+	@RequestMapping(value="/reservationConfirmation", method=RequestMethod.POST,consumes="application/json")
+	public String reservationConfirmation(@RequestBody Reservation reservation) {
+		return "Confirmation Number :"+ reservation.getReservationID();
 	}
 	
 	public List<Hotel> getHotelList() {
@@ -41,6 +50,8 @@ public class HotelController {
 		
 		return hotelsList;
 	}
+	
+	
 	
 	@GetMapping("/getBookings")
 	public Hotel getBookings(@RequestParam(value = "name", defaultValue = "CozyHotel") String name) {
