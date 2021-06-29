@@ -1,7 +1,9 @@
 package com.twan.framework.entity;
 
 public class Guest {
-
+	
+	private Integer id;
+	
 	private String firstName;
 	private String lastName;
 	private int age;
