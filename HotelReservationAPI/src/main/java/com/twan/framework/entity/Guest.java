@@ -1,7 +1,10 @@
 package com.twan.framework.entity;
 
+import javax.persistence.Id;
+
 public class Guest {
 	
+	@Id
 	private Integer id;
 	
 	private String firstName;
