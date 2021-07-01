@@ -1,46 +1,48 @@
 package com.twan.framework.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "hotel_tbl")
 public class Hotel {
 
-
-	private List<Reservation> reservations;
-
-	private final long id;
-	private final String hotelName;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	
+	@Column(name = "hotelName", nullable = false)
+	private String hotelName;
+	
+	@Column(name = "price", nullable = false)
 	private float price;
+	
+	@Column(name = "available", nullable = false)
 	private boolean availability;
 
-	public Hotel(long id, String hotelName) {
-		this.id = id;
-		this.hotelName = hotelName;
-		this.reservations = new ArrayList<Reservation>();
-		Reservation reservation = new Reservation();
-		reservation.setReservationID(23);
-		this.reservations.add(reservation);
-	}
-	
-	public Hotel(long id, String hotelName, float price, boolean availability) {
-		this.id = id;
-		this.hotelName = hotelName;
-		this.price = price;
-		this.availability = availability;
-		this.reservations = new ArrayList<Reservation>();
-	}
-
-	public long getId() {
+	public int getId() {
 		return id;
 	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 
 	public String getHotelName() {
 		return hotelName;
 	}
 
-	public List<Reservation> getReservations() {
-		return reservations;
+
+	public void setHotelName(String hotelName) {
+		this.hotelName = hotelName;
 	}
+
 
 	public float getPrice() {
 		return price;
@@ -50,7 +52,7 @@ public class Hotel {
 		this.price = price;
 	}
 
-	public boolean isAvailability() {
+	public boolean getAvailability() {
 		return availability;
 	}
 	
@@ -58,8 +60,10 @@ public class Hotel {
 		this.availability = availability;
 	}
 	
-	void setReservation(List<Reservation> reservations) {
-		this.reservations = reservations;
-	}
-
+	@Override
+    public String toString() {
+        return "Hotel [id=" + id + ", hotelName=" + hotelName + ", price=" + price + ", availability=" + availability 
+       + "]";
+    }
+	
 }

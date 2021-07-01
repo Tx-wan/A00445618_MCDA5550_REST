@@ -1,5 +1,6 @@
 package com.twan.framework.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +14,26 @@ public class Guest {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
+	@Column(name = "firstName", nullable = false)
 	private String firstName;
+	
+	@Column(name = "lastName", nullable = false)
 	private String lastName;
+	
+	@Column(name = "age", nullable = false)
 	private int age;
+	
+	@Column(name = "gender", nullable = false)
 	private Gender gender;
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -50,4 +66,10 @@ public class Guest {
 	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
+	
+	@Override
+    public String toString() {
+        return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender
+       + "]";
+    }
 }
