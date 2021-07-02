@@ -1,10 +1,17 @@
 package com.twan.framework.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,12 +20,13 @@ public class Guest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@Column(name = "guest_id", nullable = false)
+	private long guestId;
 
-	@Column(name = "firstName", nullable = false)
+	@Column(name = "first_name", nullable = false)
 	private String firstName;
 	
-	@Column(name = "lastName", nullable = false)
+	@Column(name = "last_name", nullable = false)
 	private String lastName;
 	
 	@Column(name = "age", nullable = false)
@@ -27,12 +35,22 @@ public class Guest {
 	@Column(name = "gender", nullable = false)
 	private Gender gender;
 	
-	public Integer getId() {
-		return id;
+	/*
+	 * @ManyToMany(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinTable(name = "reservation_guest_mapping",joinColumns = {@JoinColumn(name
+	 * = "guest_id")},inverseJoinColumns = {@JoinColumn(name="reservation_id")})
+	 */
+	@ManyToOne(targetEntity = Reservation.class,fetch = FetchType.LAZY)
+	@JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
+	private Reservation reservation;
+
+	public long getGuestId() {
+		return guestId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setGuestId(long guestId) {
+		this.guestId = guestId;
 	}
 
 	public String getFirstName() {
@@ -67,9 +85,17 @@ public class Guest {
 		this.gender = gender;
 	}
 	
+	public Reservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(Reservation reservation) {
+		this.reservation = reservation;
+	}
+	
 	@Override
     public String toString() {
-        return "Guest [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender
+        return "Guest [id=" + guestId + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age + ", gender=" + gender
        + "]";
     }
 }

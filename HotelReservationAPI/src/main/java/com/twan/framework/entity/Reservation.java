@@ -3,20 +3,63 @@ package com.twan.framework.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "reservation_tbl")
 public class Reservation {
 	
-	private int reservationID;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "reservation_id")
+	private long reservationId;
+	
+	@Column(name = "check_in_date", nullable = false)
 	private Date checkInDate;
+	
+	@Column(name = "check_out_date", nullable = false)
 	private Date checkOutDate;
+	
+	@ManyToOne(targetEntity = Hotel.class,fetch = FetchType.LAZY)
+	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
+	private Hotel hotel;
+	
+	/*
+	 * @ManyToMany(fetch = FetchType.LAZY)
+	 * 
+	 * @JoinTable(name = "reservation_guest_mapping",joinColumns = {@JoinColumn(name
+	 * = "reservation_id")},inverseJoinColumns = {@JoinColumn(name="guest_id")})
+	 */
+	//Maintain FK in Many side
+	@OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
 	private List<Guest> guests;
 
-
-	public int getReservationID() {
-		return reservationID;
+	public long getReservationId() {
+		return reservationId;
 	}
 
-	public void setReservationID(int reservationID) {
-		this.reservationID = reservationID;
+	public void setReservationId(long reservationId) {
+		this.reservationId = reservationId;
+	}
+	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	public Date getCheckInDate() {
@@ -34,7 +77,7 @@ public class Reservation {
 	public void setCheckOutDate(Date checkOutDate) {
 		this.checkOutDate = checkOutDate;
 	}
-
+	
 	public List<Guest> getGuests() {
 		return guests;
 	}
@@ -42,4 +85,10 @@ public class Reservation {
 	public void setGuests(List<Guest> guests) {
 		this.guests = guests;
 	}
+
+	/*
+	 * public List<Guest> getGuests() { return guests; }
+	 * 
+	 * public void setGuests(List<Guest> guests) { this.guests = guests; }
+	 */
 }

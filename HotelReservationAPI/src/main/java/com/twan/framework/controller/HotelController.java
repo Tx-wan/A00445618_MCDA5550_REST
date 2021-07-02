@@ -1,23 +1,18 @@
 package com.twan.framework.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twan.framework.entity.Hotel;
-import com.twan.framework.entity.Reservation;
 import com.twan.framework.exception.ResourceNotFoundException;
 import com.twan.framework.repository.HotelRepository;
 
@@ -32,7 +27,7 @@ public class HotelController {
 		return hotelRepository.findAll();
 	}
 	
-	@RequestMapping("/getHotel%id={id}")
+	@RequestMapping("/getHotel/{id}")
 	public ResponseEntity<Hotel> getHotelByID (@PathVariable(value="id") Long hotelId) throws ResourceNotFoundException {
 		Hotel hotel = hotelRepository.findById(hotelId)
 				.orElseThrow(() -> new ResourceNotFoundException("Hotel not found by ID:"+hotelId)) ;
@@ -44,7 +39,7 @@ public class HotelController {
 		return hotelRepository.save(hotel);
 	}
 	
-	@RequestMapping(value="/updateHotel%id={id}", method=RequestMethod.PUT,consumes="application/json")
+	@RequestMapping(value="/updateHotel/{id}", method=RequestMethod.PUT,consumes="application/json")
 	public ResponseEntity<Hotel> updateHotel(@PathVariable(value="id") Long hotelId, @RequestBody Hotel hotelUpdates
 			) throws ResourceNotFoundException {
 		Hotel hotel = hotelRepository.findById(hotelId)
@@ -56,10 +51,24 @@ public class HotelController {
 		return ResponseEntity.ok().body(hotel);
 	}
 	
-	@RequestMapping(value="/reservationConfirmation", method=RequestMethod.POST,consumes="application/json")
-	public String reservationConfirmation(@RequestBody Reservation reservation) {
-		return "Confirmation Number :"+ reservation.getReservationID();
+	@RequestMapping(value="/deleteHotel/{id}", method=RequestMethod.DELETE,consumes="application/json")
+	public Map<String, Boolean> deleteHotel(@PathVariable(value="id") Long hotelId, @RequestBody Hotel hotelUpdates
+			) throws ResourceNotFoundException {
+		Hotel hotel = hotelRepository.findById(hotelId)
+				.orElseThrow(() -> new ResourceNotFoundException("Hotel not found by ID:"+hotelId)) ;
+		
+		hotelRepository.delete(hotel);
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("delete", Boolean.TRUE);
+		return response;
 	}
+	
+	/*
+	 * @RequestMapping(value="/reservationConfirmation",
+	 * method=RequestMethod.POST,consumes="application/json") public String
+	 * reservationConfirmation(@RequestBody Reservation reservation) { return
+	 * "Confirmation Number :"+ reservation.getReservationID(); }
+	 */
 	
 	
 	

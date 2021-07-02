@@ -1,5 +1,6 @@
 package com.twan.framework.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,21 @@ public class GuestController {
 	
 	@RequestMapping("/guests")
 	public List<Guest> getAllGuest() {
-		return guestRepository.findAll();
+		List<Guest> resultguests = guestRepository.findAll();
+		List<Guest> guests = new ArrayList<Guest>();
+		
+		for (Guest g : resultguests) {
+			Guest guest = new Guest();
+			guest.setGuestId(g.getGuestId());
+			guest.setFirstName(g.getFirstName());
+			guest.setLastName(g.getLastName());
+			guest.setAge(g.getAge());
+			guest.setGender(g.getGender());
+			
+			guests.add(guest);
+		}
+		
+		return guests;
 	}
 	
 	@RequestMapping(value="/saveguest", method=RequestMethod.POST,consumes="application/json")
