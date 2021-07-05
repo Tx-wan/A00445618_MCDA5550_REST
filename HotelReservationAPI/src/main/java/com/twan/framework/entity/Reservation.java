@@ -1,5 +1,7 @@
 package com.twan.framework.entity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,11 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "reservation_tbl")
@@ -32,6 +35,7 @@ public class Reservation {
 	@Column(name = "check_out_date", nullable = false)
 	private Date checkOutDate;
 	
+	@JsonIgnore
 	@ManyToOne(targetEntity = Hotel.class,fetch = FetchType.LAZY)
 	@JoinColumn(name = "hotel_id", referencedColumnName = "hotel_id")
 	private Hotel hotel;
@@ -43,6 +47,7 @@ public class Reservation {
 	 * = "reservation_id")},inverseJoinColumns = {@JoinColumn(name="guest_id")})
 	 */
 	//Maintain FK in Many side
+	@JsonIgnore
 	@OneToMany(mappedBy = "reservation",cascade = CascadeType.ALL)
 	private List<Guest> guests;
 
@@ -62,8 +67,12 @@ public class Reservation {
 		this.hotel = hotel;
 	}
 
-	public Date getCheckInDate() {
-		return checkInDate;
+	public Date getCheckInDate() throws ParseException {
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date date = fmt.parse(checkInDate.toString());
+		
+		return date;
 	}
 
 	public void setCheckInDate(Date checkInDate) {

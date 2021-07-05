@@ -1,4 +1,4 @@
-package com.twan.framework.entity;
+package com.twan.framework.convertor;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

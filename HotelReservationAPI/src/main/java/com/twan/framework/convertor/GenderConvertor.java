@@ -1,5 +1,6 @@
-package com.twan.framework.entity;
+package com.twan.framework.convertor;
 
+import com.twan.framework.entity.Gender;
 
 public class GenderConvertor {
 	public static Gender Convertor(String str_gender) {

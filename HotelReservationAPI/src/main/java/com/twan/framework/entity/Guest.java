@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "guest_tbl")
 public class Guest {
@@ -41,6 +43,7 @@ public class Guest {
 	 * @JoinTable(name = "reservation_guest_mapping",joinColumns = {@JoinColumn(name
 	 * = "guest_id")},inverseJoinColumns = {@JoinColumn(name="reservation_id")})
 	 */
+	@JsonIgnore
 	@ManyToOne(targetEntity = Reservation.class,fetch = FetchType.LAZY)
 	@JoinColumn(name = "reservation_id", referencedColumnName = "reservation_id")
 	private Reservation reservation;

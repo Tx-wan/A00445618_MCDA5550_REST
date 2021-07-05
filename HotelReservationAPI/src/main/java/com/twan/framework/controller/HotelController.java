@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twan.framework.entity.Hotel;
 import com.twan.framework.exception.ResourceNotFoundException;
 import com.twan.framework.repository.HotelRepository;
@@ -23,14 +25,20 @@ public class HotelController {
 	private HotelRepository hotelRepository;
 	
 	@RequestMapping("/getListOfHotels")
-	public List<Hotel> getListOfHotels() {
-		return hotelRepository.findAll();
+	public Map<String, Object> getListOfHotels() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("all_hotels", hotelRepository.findAll());
+	
+		return result;
 	}
 	
 	@RequestMapping("/getHotel/{id}")
 	public ResponseEntity<Hotel> getHotelByID (@PathVariable(value="id") Long hotelId) throws ResourceNotFoundException {
 		Hotel hotel = hotelRepository.findById(hotelId)
 				.orElseThrow(() -> new ResourceNotFoundException("Hotel not found by ID:"+hotelId)) ;
+		//Map<String, Object> result = new HashMap<String, Object>();
+		//result.put("all_hotels",  ResponseEntity.ok().body(hotel));
+		
 		return ResponseEntity.ok().body(hotel);
 	}
 	
