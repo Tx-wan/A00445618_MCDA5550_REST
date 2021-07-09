@@ -2,13 +2,15 @@
 Author WAN, Taixuan
 For REST assignment
 
+The code is in folder HotelReservationAPI. Rest folders are used for storing downloaded files
+
 Introduce:
 This project aims to build a spring project with RESTful API functions. 
 API functions:
 1. list hotels:
 This api returns the list of all hotels in database. The return data is in JSON format. The usage of this api is as following:
 
-URL: http://localhost:8080/getListOfHotels
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/getListOfHotels
 Parameter: N/A
 Method: Get
 Input Structure&explanation: No input
@@ -50,7 +52,7 @@ return:
 2. Reservation Confirmation:
 This api allows user to store reservation details in database. Input all user information in request body. The input data is in JSON format. It resturns the reservation confirmation number. The return data is in String format. The usage of this api is as following:
 
-URL: http://localhost:8080/reservationConfirmation
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/reservationConfirmation
 Parameter: N/A
 Method: POST
 Input Structure&explanation: 
@@ -100,7 +102,7 @@ confirmation_number :18
 
 3. Get hotel by id
 This api returns the result of inquirying hotel by its ID. It returns the detailed information of hotel. The return data is in String format. The usage of this api is as following:
-URL: http://localhost:8080/getHotel/{id}
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/getHotel/{id}
 Parameter: id: hotel's id
 Method: Get
 Input Structure&explanation: No input
@@ -115,7 +117,7 @@ Exception:
      if no records matches, return 404 Not Found with detailed explaination
 
 Example:
-URL: http://localhost:8080/getHotel/9
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/getHotel/9
 return:
 {
     "hotelId": 9,
@@ -126,7 +128,7 @@ return:
 
 4. Update hotel by id
 This api allows to modify hotel's price and availability in database. The input data must include hotel's price and availability. The input data is in JSON format.  It returns what database updates. The return data is in JSON format. The usage of this api is as following:
-URL: http://localhost:8080/updateHotel/{id}
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/updateHotel/{id}
 Parameter: id: hotel's id
 Method: PUT
 Input Structure&explanation: 
@@ -145,7 +147,7 @@ Exception:
      if no records matches, return 404 Not Found with detailed explaination
 
 Example:
-URL: http://localhost:8080/updateHotel/15
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/updateHotel/15
 input:
 {
     "price":210,
@@ -161,7 +163,7 @@ return:
 
 5. Delete hotel by id
 This api allows to delete hotel with its id in database.   It returns the delete result. The return data is in JSON format. The usage of this api is as following:
-URL: http://localhost:8080/deleteHotel/{id}
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/deleteHotel/{id}
 Parameter: id: hotel's id
 Method: DELETE
 Input Structure&explanation:  N/A
@@ -174,7 +176,7 @@ Exception:
 
 6. Create Hotel Record
 This api allows to insert hotel record in database. The input data includes the detailed information of hotel. The input data is in JSON format.  It returns what database updates. The return data is in JSON format. The usage of this api is as following:
-URL: http://localhost:8080/createHotel
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/createHotel
 Parameter: N/A
 Method: POST
 Input Structure&explanation: 
@@ -211,7 +213,7 @@ return:
 
 7. Get Guest List
 This api returns the guest list and guest's reservation information in database. The return data is in JSON format. The usage of this api is as following:
-URL: http://localhost:8080/getListOfGuests
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/getListOfGuests
 Parameter: N/A
 Method: GET
 Input Structure&explanation:  N/A
@@ -280,7 +282,7 @@ input:
 
 7. Get Guest List with reservation Id
 This api returns the guest list and guest's reservation information with a particular ID in database. The return data is in JSON format. The usage of this api is as following:
-URL: http://localhost:8080/getGuestsByReservationId/{id}
+URL: http://HotelReservationAPI-tx.us-east-1.elasticbeanstalk.com/getGuestsByReservationId/{id}
 Parameter: id: reservation's id
 Method: GET
 Input Structure&explanation:  N/A
