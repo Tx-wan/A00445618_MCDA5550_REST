@@ -27,7 +27,7 @@ public class HotelController {
 	@RequestMapping("/getListOfHotels")
 	public Map<String, Object> getListOfHotels() {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("all_hotels", hotelRepository.findAll());
+		result.put("hotels_list", hotelRepository.findAll());
 	
 		return result;
 	}
@@ -54,13 +54,15 @@ public class HotelController {
 				.orElseThrow(() -> new ResourceNotFoundException("Hotel not found by ID:"+hotelId)) ;
 		
 		hotel.setAvailability(hotelUpdates.getAvailability());
-		hotel.setPrice(hotelUpdates.getPrice());;
+		hotel.setPrice(hotelUpdates.getPrice());
+		
+		hotelRepository.save(hotel);
 		
 		return ResponseEntity.ok().body(hotel);
 	}
 	
-	@RequestMapping(value="/deleteHotel/{id}", method=RequestMethod.DELETE,consumes="application/json")
-	public Map<String, Boolean> deleteHotel(@PathVariable(value="id") Long hotelId, @RequestBody Hotel hotelUpdates
+	@RequestMapping(value="/deleteHotel/{id}", method=RequestMethod.DELETE)
+	public Map<String, Boolean> deleteHotel(@PathVariable(value="id") Long hotelId
 			) throws ResourceNotFoundException {
 		Hotel hotel = hotelRepository.findById(hotelId)
 				.orElseThrow(() -> new ResourceNotFoundException("Hotel not found by ID:"+hotelId)) ;
@@ -81,6 +83,7 @@ public class HotelController {
 	
 	
 	/*
+	 *hardcoded part, no use anymore
 	 * public List<Hotel> getHotelList() { List<Hotel> hotelsList = new
 	 * ArrayList<Hotel>(); List<String> hotelsNames =
 	 * Arrays.asList("Holiday Inn","Hilton", "Four Seasons", "Marriot"); Random

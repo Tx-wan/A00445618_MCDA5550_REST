@@ -49,7 +49,7 @@ public class GuestController {
 		return allGuest;
 	}
 	
-	@RequestMapping("/getGuests/{id}")
+	@RequestMapping("/getGuestsByReservationId/{id}")
 	public Map<String, Object> getHotelByID (@PathVariable(value="id") Integer reservationId) throws ResourceNotFoundException{
 		List<Map<String, Object>> guests;
 		Map<String, Object> allGuest = new HashMap<String, Object>();
