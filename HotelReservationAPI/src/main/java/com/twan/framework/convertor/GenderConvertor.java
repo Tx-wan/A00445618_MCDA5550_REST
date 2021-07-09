@@ -17,4 +17,18 @@ public class GenderConvertor {
 		return g;
 	}
 
+	public static Gender ConvertorFromInteger(String str_gender) {
+		Gender g = null;
+		
+		if (str_gender.toLowerCase().equals("0")) {
+			g = Gender.MALE;
+		} else if (str_gender.toLowerCase().equals("1")) {
+			g = Gender.FEMALE;
+		} else {
+			g = Gender.NONIDENTIFIED;
+		}
+		
+		return g;
+	}
+
 }

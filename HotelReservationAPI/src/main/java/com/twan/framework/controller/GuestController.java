@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.twan.framework.convertor.DateConvertor;
+import com.twan.framework.convertor.GenderConvertor;
 import com.twan.framework.exception.ResourceNotFoundException;
 import com.twan.framework.repository.GuestRepository;
 
@@ -38,6 +39,7 @@ public class GuestController {
 			
 			guest.putAll(g);
 			
+			guest.replace("gender", GenderConvertor.ConvertorFromInteger(g.get("gender").toString()));
 			guest.replace("check_in_date", dc.Convert(g.get("check_in_date")));
 			guest.replace("check_out_date", dc.Convert(g.get("check_out_date")));
 			
